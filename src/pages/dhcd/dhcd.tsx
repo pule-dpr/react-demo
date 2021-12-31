@@ -2,27 +2,38 @@ import './dhcd.module.less'
 import React, { useState,MouseEvent } from 'react'
 import {useRef} from 'react'
 import { Input } from 'antd';
-import { useRequest,useFocusWithin,useEventListener,useVirtualList,useMount } from 'ahooks';
+import { useRequest,useFocusWithin,useEventListener,useVirtualList,useMount,useClickAway, useBoolean } from 'ahooks';
 import {baidu,bdudata} from '../../api/api'
 import {bddata} from '../../mock/index'
 function Dhcd() {
   let inputevent:any
   const inputfoucs = useRef(null);
+  const modalfoucs = useRef(null);
   const [word,setWord]=useState<string>('')
   const [datalist,setDatalist]=useState<string[]>([])
   const containerRef = useRef(null);
   const wrapperRef = useRef(null);
-  const isFocusWithin = useFocusWithin((inputfoucs));
+  useClickAway(() => {
+    setFalse()
+  }, [inputfoucs, modalfoucs]);
+  const isshow = useFocusWithin(inputfoucs, {
+    onFocus: () => {
+      setTrue()
+    }
+  });
+  const [isFocusWithin,{setTrue,setFalse}]=useBoolean()
   const { data, run } = useRequest(baidu, {
     debounceWait: 1000,
     manual: true,
   });
   useMount(() => {
     inputevent.focus()
+    setTrue()
   });
   useEventListener('keydown', (ev) => {
     if(ev.code==='Enter'){
       inputevent.blur()
+      setFalse()
       runbd(word)
     };
   });
@@ -46,8 +57,9 @@ function Dhcd() {
     setWord(str)
     run(str)
   }
-  function go(e:MouseEvent){
-    console.log(e,9999999)
+  function go(e:any){
+    setWord(e.target.innerText)
+    setFalse()
   }
     return(
      <div className='baidu'>
@@ -59,14 +71,14 @@ function Dhcd() {
                   <Input ref={(input) => inputevent = input} placeholder="请输入关键字..." value={word} onChange={e => onchange(e.target.value)} />
               </div>
               <div className='btn' onClick={()=>runbd(word)}>百度一下</div>
-           </div>
-             <div className='modal' style={{display:isFocusWithin && data && data.length>0? 'block':'none'}}>
-              <ul >
-                {data?.map((item,index)=>{
-                  return <li onClick={go} key={index}>{item}</li>
-                })}
-              </ul>
-            </div>
+          </div>
+          <div className='modal' ref={modalfoucs} style={{display:isFocusWithin && data && data.length>0? 'block':'none'}}>
+            <ul >
+              {data?.map((item,index)=>{
+                return <li onClick={go} key={index}>{item}</li>
+              })}
+            </ul>
+          </div>
          </div>
        </div>
        {
