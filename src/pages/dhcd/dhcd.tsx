@@ -68,7 +68,7 @@ function Dhcd() {
          <div className='search'>
            <div className='top'>
               <div className='input' ref={inputfoucs}>
-                  <Input ref={(input) => inputevent = input} placeholder="请输入关键字..." value={word} onChange={e => onchange(e.target.value)} />
+                  <Input ref={(input) => inputevent = input} placeholder="由于是假数据，输入‘项目’查看虚拟无限列表效果..." value={word} onChange={e => onchange(e.target.value)} />
               </div>
               <div className='btn' onClick={()=>runbd(word)}>百度一下</div>
           </div>

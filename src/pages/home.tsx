@@ -28,6 +28,8 @@ function Index({store}:{store:StoreInstance}){
               <div><Link to='/jsq'>计算器</Link></div>
               <div><Link to='rl'>Hooks记录</Link></div>
               <div><Link to='dhcd'>我的百度</Link></div>
+              <div><Link to='/G2char'>富文本</Link></div>
+              <div><Link to='/Formdemo'>Formdemo</Link></div>
             </div>
           </Content>
           <Footer>

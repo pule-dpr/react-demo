@@ -7,6 +7,9 @@ import Bwl from '../pages/bwl/bwl'
 import Jsq from '../pages/jsq/jsq'
 import Rl from '../pages/rl/rl'
 import Dhcd from '../pages/dhcd/dhcd'
+import G2char from '../pages/G2char/G2char'
+import Formdemo from '../pages/form/index'
+
 import { StoreInstance } from '../store'
 
 function AppRouter({ store }: { store: StoreInstance }) {
@@ -21,6 +24,8 @@ function AppRouter({ store }: { store: StoreInstance }) {
             <Routes>
                 <Route path="/" element={<Index store={store} />} />
                 <Route path="/login" element={<Login store={store} />} />
+                <Route path="/G2char" element={<G2char />} />
+                <Route path="/Formdemo" element={<Formdemo />} />
                 {store.isLogin === true ?
                     <>
                         <Route path="/bwl/:id" element={<Bwl />} />

@@ -38,7 +38,7 @@ export interface bddata{
 }
 let baidu:string[]=['项目','项目人','项目大','项目看看','项目顶顶顶','项目啦啦啦啦啦','项目大得到的','项目看看嗡嗡嗡','项目都是对的','项目顶顶顶撒大大','项目大多数','项目都是对的啊','项目大大看看','看看','顶顶顶暗色点']
 let bddata:bddata[]=baidu.map((item)=>{
-    let listdata=[]
+    let listdata:string[]=[]
     for(let i=0;i<200;i++){
         listdata.push(item+'00'+i)
     }
